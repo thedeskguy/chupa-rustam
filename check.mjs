@@ -4,8 +4,12 @@ import assert from "node:assert/strict";
 
 const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
 const src = html.split("/*logic*/")[1].split("/*/logic*/")[0];
-const { deal, buildPool, maxImposters, parseCustom, CATS, CUSTOM } =
-  new Function(src + ";return {deal,buildPool,maxImposters,parseCustom,CATS,CUSTOM}")();
+const { deal, buildPool, maxImposters, parseCustom, points, turnOrder, CATS, CUSTOM } =
+  new Function(src + ";return {deal,buildPool,maxImposters,parseCustom,points,turnOrder,CATS,CUSTOM}")();
+
+assert.deepEqual(points(4, [2], true), [1, 1, 0, 1]);
+assert.deepEqual(points(4, [2], false), [0, 0, 2, 0]);
+assert.deepEqual(turnOrder(4, 2), [2, 3, 0, 1]);
 
 for (const [c, ws] of Object.entries(CATS)) assert.equal(new Set(ws.map(w => w.toLowerCase())).size, ws.length, `duplicate in ${c}`);
 

@@ -3,190 +3,300 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6c2bd9">
 <title>Chupa Rustam</title>
-<meta name="description" content="Desi imposter word game — pass the phone, find the Chupa Rustam.">
+<meta name="description" content="Pass-the-phone imposter word game with Indian word lists.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1a0f2e;--panel:#2a1a47;--line:#3f2b66;--text:#fff7e8;--muted:#c9b8e8;--gold:#ffb627;--pink:#ff4f8b;--orange:#ff8a3d;--green:#2ec4a5;--red:#ff5a5f}
+:root{
+  --bg:#6c2bd9;--ink:#1d0f3a;--paper:#fff6e0;--muted:#6b5a8c;
+  --yellow:#ffd23f;--pink:#ff5d8f;--teal:#2ee6c5;--orange:#ff8c42;--red:#ff4b4b;
+  --b:3px solid var(--ink);--sh:0 5px 0 var(--ink);
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-button,.row,.card{touch-action:manipulation;-webkit-user-select:none;user-select:none}
-.card{-webkit-touch-callout:none}
-main{padding-bottom:calc(28px + env(safe-area-inset-bottom)) !important}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Baloo 2",system-ui,sans-serif;font-size:17px}
-body{min-height:100dvh;background:radial-gradient(120% 60% at 50% -10%,#4a1f5e 0,var(--bg) 60%) fixed var(--bg)}
-main{max-width:460px;margin:0 auto;padding:20px 16px 28px;min-height:100dvh;display:flex;flex-direction:column}
-section{display:flex;flex-direction:column;gap:14px;flex:1}
-section[hidden]{display:none}
-h1{font-size:2.6rem;line-height:1;margin:6px 0 0;font-weight:800;letter-spacing:-.5px}
-h1 span{color:var(--gold)}
-h2{font-size:1.9rem;line-height:1.1;margin:0;font-weight:800}
-.sub{color:var(--muted);margin:0;line-height:1.35}
-.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.x{border:0;background:var(--panel);color:var(--muted);width:40px;height:40px;border-radius:50%;font:inherit;font-size:1.1rem;cursor:pointer}
-.rows{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border:0;border-bottom:1px solid var(--line);width:100%;background:none;color:inherit;font:inherit;text-align:left;min-height:58px}
-.row:last-child{border-bottom:0}
-.ico{font-size:1.35rem;width:28px;text-align:center;flex:none}
-.lbl{flex:1;font-weight:700}
-.val{color:var(--gold);font-weight:700}
-button.row{cursor:pointer}
-.stepper{display:flex;align-items:center;gap:10px}
-.stepper button{width:36px;height:36px;border-radius:50%;border:0;background:var(--line);color:var(--text);font:inherit;font-size:1.25rem;cursor:pointer}
-.stepper button:disabled{opacity:.35}
-.tog{appearance:none;-webkit-appearance:none;margin:0;width:50px;height:30px;border-radius:15px;background:var(--line);position:relative;cursor:pointer;transition:background .2s;flex:none}
-.tog::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .2s}
-.tog:checked{background:var(--green)}
-.tog:checked::after{left:23px}
-select{font:inherit;font-weight:700;color:var(--gold);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px 8px}
-select:disabled{opacity:.4}
-.btn{border:0;border-radius:16px;padding:15px;font:inherit;font-weight:800;font-size:1.2rem;cursor:pointer;background:var(--gold);color:#2a1a00;width:100%}
-.btn.alt{background:var(--panel);color:var(--text);border:1px solid var(--line)}
-.btn.pink{background:var(--pink);color:#fff}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn:focus-visible,.row:focus-visible,.card:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo 2",system-ui,sans-serif;font-size:17px;overscroll-behavior:none;
+  background-image:radial-gradient(rgba(255,255,255,.13) 2px,transparent 2.5px),radial-gradient(rgba(255,255,255,.07) 2px,transparent 2.5px);
+  background-size:28px 28px;background-position:0 0,14px 14px}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+main{max-width:480px;margin:0 auto;min-height:100dvh;padding:16px 16px calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+section{display:flex;flex-direction:column;gap:14px;flex:1;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(12px)}}
+h2{margin:0;font-family:"Lilita One",system-ui;font-weight:400;font-size:2.1rem;line-height:1.05;color:#fff;text-shadow:0 3px 0 var(--ink);text-align:center}
+.lead{margin:0;text-align:center;color:#f1e8ff;font-weight:600;line-height:1.3}
 .spacer{flex:1}
-.how{display:grid;gap:8px;margin:0;padding:0;list-style:none}
-.how li{display:flex;gap:10px;color:var(--muted);line-height:1.3}
-.how b{color:var(--text)}
-.card{flex:1;min-height:340px;border-radius:26px;border:0;font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:24px;text-align:center;
-  background:radial-gradient(rgba(255,255,255,.16) 2px,transparent 2.5px) 0 0/20px 20px,linear-gradient(140deg,var(--pink),var(--orange));box-shadow:0 12px 40px rgba(255,79,139,.25)}
-.card .big{font-size:4.5rem;line-height:1}
-.card .hint{font-size:1.15rem;font-weight:700;opacity:.95}
-.card.face{background:var(--panel);border:2px solid var(--gold);box-shadow:0 12px 40px rgba(255,182,39,.18)}
-.card.face.imp{border-color:var(--red);background:linear-gradient(160deg,#3a1630,var(--panel))}
-.card .cat{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.85rem}
-.card .word{font-size:2.6rem;font-weight:800;line-height:1.05;color:var(--gold);overflow-wrap:anywhere}
-.card.imp .word{color:var(--red)}
-.pass{text-align:center}
-.pass .name{color:var(--gold)}
-.timer{font-size:5.5rem;font-weight:800;text-align:center;line-height:1;font-variant-numeric:tabular-nums;margin:24px 0 4px}
-.timer.low{color:var(--red)}
-.pill{align-self:center;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:700}
-.pill b{color:var(--gold)}
-.result{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;text-align:center;display:grid;gap:6px}
-.result .names{font-size:2rem;font-weight:800;color:var(--red);line-height:1.1}
-.result .word{font-size:1.6rem;font-weight:800;color:var(--gold)}
-dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:22px;width:min(440px,calc(100% - 32px));max-height:86dvh;padding:18px;overflow:auto}
-dialog::backdrop{background:rgba(10,5,20,.7)}
-dialog h3{margin:0 0 10px;font-size:1.5rem}
-.plist{display:grid;gap:8px;margin-bottom:12px}
-.prow{display:flex;gap:8px}
-.prow input,textarea{flex:1;min-width:0;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.prow button{border:0;background:var(--line);color:var(--text);border-radius:12px;width:46px;font:inherit;cursor:pointer}
-.clist{display:grid;gap:6px;margin-bottom:12px}
-.clist label{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;cursor:pointer}
-.clist label span{flex:1;font-weight:700}
-.clist small{color:var(--muted)}
-.clist input{width:20px;height:20px;accent-color:var(--gold)}
-textarea{width:100%;min-height:90px;resize:vertical}
-.dfoot{display:grid;gap:8px;margin-top:12px}
-.note{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.chunk{background:var(--paper);border:var(--b);border-radius:20px;box-shadow:var(--sh)}
+.btn{display:block;width:100%;border:var(--b);border-radius:18px;box-shadow:var(--sh);padding:13px 16px;font-family:"Lilita One",system-ui;font-size:1.45rem;letter-spacing:.5px;background:var(--yellow);transition:transform .08s,box-shadow .08s}
+.btn:active:not(:disabled),.tile:active,.x:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.pink{background:var(--pink);color:#fff;text-shadow:0 2px 0 var(--ink)}
+.btn.ghost{background:var(--paper);font-size:1.15rem}
+.btn:disabled{filter:grayscale(.8);opacity:.6;cursor:not-allowed}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{background:var(--paper);border:var(--b);border-radius:999px;padding:3px 14px;font-weight:800;box-shadow:0 3px 0 var(--ink)}
+.x{width:42px;height:42px;border:var(--b);border-radius:50%;background:var(--paper);box-shadow:0 3px 0 var(--ink);font-weight:800}
+
+/* logo */
+.logo{text-align:center;margin:4px 0 0;position:relative}
+.logo .spy{font-size:2.6rem;display:inline-block;animation:bob 2.4s ease-in-out infinite}
+.logo .l1,.logo .l2{display:block;font-family:"Lilita One",system-ui;line-height:.92;color:#fff;-webkit-text-stroke:2px var(--ink);text-shadow:0 5px 0 var(--ink)}
+.logo .l1{font-size:3.3rem;transform:rotate(-3deg)}
+.logo .l2{font-size:3.8rem;color:var(--yellow);transform:rotate(2deg)}
+.logo .sticker{position:absolute;right:2%;top:10px;background:var(--pink);color:#fff;border:var(--b);border-radius:12px;padding:0 10px;font-weight:800;font-size:.85rem;transform:rotate(10deg);box-shadow:0 3px 0 var(--ink)}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-6deg)}}
+
+/* avatars + players */
+.av{width:56px;height:56px;flex:none;border-radius:50%;border:var(--b);display:grid;place-items:center;font-size:1.8rem;box-shadow:0 3px 0 var(--ink);background:var(--c,#ddd);line-height:1}
+.panel{padding:12px 14px 14px}
+.phead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.phead b{font-family:"Lilita One",system-ui;font-weight:400;font-size:1.35rem}
+.phead span{color:var(--muted);font-weight:700}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:10px 6px}
+.chip{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;animation:pop .3s ease backwards}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+.nm{font-weight:700;font-size:.85rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip.add .av{background:#fff;border-style:dashed;font-size:1.7rem;font-weight:800;box-shadow:none}
+
+/* setting tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border:var(--b);border-radius:18px;box-shadow:var(--sh);background:var(--paper);padding:8px 12px 10px;text-align:left;display:flex;flex-direction:column;gap:0;min-height:96px;transition:transform .08s,box-shadow .08s,background .15s}
+div.tile:active{transform:none;box-shadow:var(--sh)}
+.tile .ti{font-size:1.45rem}
+.tile .tl{font-weight:700;color:var(--muted);font-size:.88rem}
+.tile .tv{font-family:"Lilita One",system-ui;font-size:1.4rem;line-height:1.1}
+.tile.on{background:var(--teal)}
+.stepper{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.stepper button{width:34px;height:34px;border:var(--b);border-radius:50%;background:#fff;font-weight:800;font-size:1.2rem;line-height:1;box-shadow:0 2px 0 var(--ink);padding:0}
+.stepper button:disabled{opacity:.3}
+.note{margin:0;text-align:center;color:#fff;font-weight:700;background:var(--red);border:var(--b);border-radius:12px;padding:4px 8px}
+.linkish{background:none;border:0;color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px;align-self:center;padding:4px 8px}
+
+/* pass + card */
+.who{display:flex;flex-direction:column;align-items:center;gap:8px}
+.who .av{width:84px;height:84px;font-size:2.8rem;border-width:4px;box-shadow:0 5px 0 var(--ink);animation:pop .35s ease}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid var(--ink)}
+.dots i.done{background:var(--yellow)}
+.dots i.now{background:#fff;transform:scale(1.35)}
+.flip{flex:1;display:flex;width:100%;min-height:300px;max-height:520px;perspective:1200px;background:none;border:0;padding:0 0 7px;-webkit-touch-callout:none}
+.flip .inner{display:block;position:relative;flex:1;min-height:300px;transition:transform .6s cubic-bezier(.3,1.35,.5,1);transform-style:preserve-3d}
+.flip.open .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border:4px solid var(--ink);border-radius:26px;box-shadow:0 7px 0 var(--ink);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;text-align:center}
+.front{background:repeating-conic-gradient(from 0deg at 50% 45%,var(--pink) 0 15deg,var(--orange) 15deg 30deg)}
+.front .q{width:120px;height:120px;border-radius:50%;background:var(--paper);border:4px solid var(--ink);display:grid;place-items:center;font-family:"Lilita One",system-ui;font-size:4.2rem;box-shadow:0 5px 0 var(--ink);animation:bob 2s ease-in-out infinite}
+.front .tap{font-family:"Lilita One",system-ui;font-size:1.35rem;color:#fff;background:var(--ink);padding:4px 18px;border-radius:999px;letter-spacing:.5px}
+.back{transform:rotateY(180deg);background:var(--paper)}
+.back .cat{font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-size:.85rem}
+.back .word{font-family:"Lilita One",system-ui;font-size:2.8rem;line-height:1.05;overflow-wrap:anywhere}
+.back .sub{color:var(--muted);font-weight:700}
+.back .big{font-size:4.2rem;line-height:1}
+.back.imp{background:var(--ink);color:#fff}
+.back.imp .word{color:var(--red);font-size:2.3rem}
+.back.imp .sub{color:#c8b8ea}
+.flip.open .back.imp .big{animation:shake .5s .45s}
+@keyframes shake{20%,60%{transform:translateX(-8px) rotate(-10deg)}40%,80%{transform:translateX(8px) rotate(10deg)}}
+.hintbox{background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:12px;padding:2px 12px;font-weight:800}
+
+/* clue round */
+.ring{width:min(230px,62vw);aspect-ratio:1;border-radius:50%;margin:6px auto 0;border:4px solid var(--ink);box-shadow:0 6px 0 var(--ink);background:conic-gradient(var(--yellow) calc(var(--p,1)*360deg),#fff 0);display:grid;place-items:center}
+.ring .in{width:74%;aspect-ratio:1;border-radius:50%;background:var(--paper);border:4px solid var(--ink);display:grid;place-items:center;font-family:"Lilita One",system-ui;font-size:3.1rem;font-variant-numeric:tabular-nums}
+.ring.low{background:conic-gradient(var(--red) calc(var(--p,1)*360deg),#fff 0);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.order{padding:12px 14px}
+.order h3,.board h3{margin:0 0 8px;font-family:"Lilita One",system-ui;font-weight:400;font-size:1.2rem}
+.order ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.order li{display:flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:2px 12px 2px 2px;font-weight:700;max-width:100%}
+.order li:first-child{background:var(--yellow)}
+.sm{width:30px;height:30px;font-size:1rem;border-width:2px;box-shadow:none}
+
+/* vote */
+.votes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}
+.vote{background:none;border:3px solid transparent;padding:8px 2px 4px;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.vote .av{transition:transform .15s}
+.vote.sel{background:var(--pink);border-color:var(--ink);color:#fff}
+.vote.sel .av{transform:scale(1.12) rotate(-8deg)}
+
+/* drumroll + result */
+.drum{align-items:center;justify-content:center}
+.drum .big{font-size:6rem;animation:drum .22s infinite alternate}
+@keyframes drum{to{transform:scale(1.15) rotate(8deg)}}
+.banner{font-family:"Lilita One",system-ui;font-size:3.4rem;line-height:1;text-align:center;-webkit-text-stroke:2px var(--ink);text-shadow:0 6px 0 var(--ink);margin-top:8px;animation:stamp .5s cubic-bezier(.3,1.6,.5,1)}
+.banner.win{color:var(--teal)}.banner.lose{color:var(--red)}
+@keyframes stamp{from{transform:scale(2.2) rotate(-8deg);opacity:0}}
+.reveal{padding:14px;text-align:center;display:grid;gap:4px}
+.imps{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:4px 0}
+.imps div{display:flex;flex-direction:column;align-items:center;font-weight:800}
+.reveal .w{font-family:"Lilita One",system-ui;font-size:2rem;line-height:1.1}
+.reveal small{color:var(--muted);font-weight:700}
+.steal{background:var(--paper);border:var(--b);border-radius:16px;padding:10px 12px;text-align:center;font-weight:700;display:grid;gap:8px}
+.board{padding:12px 14px}
+.board h3{display:flex;justify-content:space-between;align-items:center}
+.board h3 button{font-family:"Baloo 2",system-ui;font-size:.85rem;background:none;border:0;text-decoration:underline;color:var(--muted)}
+.board ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.board li{display:flex;align-items:center;gap:8px;font-weight:700}
+.board .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board .d{color:#109b76;font-weight:800;font-size:.9rem}
+.board .p{font-family:"Lilita One",system-ui;font-size:1.25rem;min-width:1.6em;text-align:right}
+.row2{display:flex;gap:10px}.row2>*{flex:1}
+
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}
+.confetti i{position:absolute;top:-24px;width:10px;height:16px;border:2px solid var(--ink);border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+/* dialogs */
+dialog{border:var(--b);border-radius:24px;box-shadow:0 8px 0 var(--ink);background:var(--paper);color:var(--ink);width:min(440px,calc(100% - 32px));max-height:86dvh;padding:18px;overflow:auto}
+dialog::backdrop{background:rgba(29,15,58,.7)}
+dialog h3{margin:0 0 12px;font-family:"Lilita One",system-ui;font-weight:400;font-size:1.6rem}
+.field{width:100%;font:inherit;font-weight:700;font-size:1.2rem;border:var(--b);border-radius:14px;padding:10px 14px;background:#fff;color:var(--ink)}
+textarea.field{font-size:1rem;font-weight:600;min-height:86px;resize:vertical}
+dialog .row2{margin-top:14px}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat{border:var(--b);border-radius:14px;background:#fff;padding:8px 10px;text-align:left;font-weight:700;display:flex;gap:6px;align-items:center;box-shadow:0 3px 0 var(--ink);line-height:1.15;font-size:.95rem}
+.cat[aria-pressed=true]{background:var(--yellow)}
+.cat .e{font-size:1.3rem}
+.mini{display:flex;gap:8px;margin-bottom:10px}
+.mini button{flex:1;border:2px solid var(--ink);border-radius:999px;background:#fff;font-weight:700;padding:4px}
+.howto{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.howto li{display:flex;gap:10px;align-items:flex-start;line-height:1.3;font-weight:600}
+.howto .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:grid;place-items:center;font-family:"Lilita One",system-ui}
+.hint-txt{color:var(--muted);font-weight:600;font-size:.9rem;margin:6px 0 0}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <main>
 
-<!-- SETUP -->
 <section id="setup">
-  <div>
-    <h1>Chupa <span>Rustam</span></h1>
-    <p class="sub">The imposter word game. One phone, everyone gets the secret word except the imposter.</p>
+  <div class="logo">
+    <span class="spy">🕵️</span>
+    <span class="l1">CHUPA</span>
+    <span class="l2">RUSTAM</span>
+    <span class="sticker">imposter game</span>
   </div>
-  <div class="rows">
-    <button class="row" id="openPlayers"><span class="ico">🙋</span><span class="lbl">Players</span><span class="val" id="vPlayers"></span></button>
-    <div class="row"><span class="ico">👻</span><span class="lbl">Imposters</span>
-      <span class="stepper"><button id="impMinus" aria-label="Fewer imposters">−</button><span class="val" id="vImp"></span><button id="impPlus" aria-label="More imposters">+</button></span></div>
-    <label class="row"><span class="ico">🔎</span><span class="lbl">Hint for imposter<br><small class="sub">Shows the category</small></span><input type="checkbox" class="tog" id="hints"></label>
-    <button class="row" id="openCats"><span class="ico">🗂️</span><span class="lbl">Categories</span><span class="val" id="vCats"></span></button>
-    <label class="row"><span class="ico">⏰</span><span class="lbl">Time limit</span><input type="checkbox" class="tog" id="timed"></label>
-    <div class="row"><span class="ico">🕒</span><span class="lbl">Duration</span>
-      <select id="mins" aria-label="Duration"><option value="1">1 min</option><option value="2">2 min</option><option value="3">3 min</option><option value="5">5 min</option><option value="8">8 min</option><option value="10">10 min</option></select></div>
+  <p class="lead">One phone. One secret word. One faker among you.</p>
+  <div class="chunk panel">
+    <div class="phead"><b>Players</b><span id="pCount"></span></div>
+    <div class="chips" id="chips"></div>
   </div>
-  <ol class="how">
-    <li><span>🃏</span><span><b>Draw cards.</b> Pass the phone around and everyone checks their card privately.</span></li>
-    <li><span>🗣️</span><span><b>Give clues.</b> Take turns saying one word related to the secret word.</span></li>
-    <li><span>🕵️</span><span><b>Catch them.</b> Expose the imposter before they figure out the word.</span></li>
-  </ol>
-  <div class="spacer"></div>
-  <button class="btn" id="start">Start Game</button>
+  <div class="tiles">
+    <div class="tile"><span class="ti">😈</span><span class="tl">Imposters</span>
+      <div class="stepper"><button id="impMinus" aria-label="Fewer imposters">−</button><span class="tv" id="vImp"></span><button id="impPlus" aria-label="More imposters">+</button></div></div>
+    <button class="tile" id="tTime"><span class="ti">⏱️</span><span class="tl">Timer</span><span class="tv" id="vTime"></span></button>
+    <button class="tile" id="tHint"><span class="ti">🔎</span><span class="tl">Imposter hint</span><span class="tv" id="vHint"></span></button>
+    <button class="tile" id="tCats"><span class="ti">🗂️</span><span class="tl">Categories</span><span class="tv" id="vCats"></span></button>
+  </div>
   <p class="note" id="startNote" hidden></p>
+  <div class="spacer"></div>
+  <button class="btn pink" id="start">PLAY ▶</button>
+  <button class="linkish" id="openHow">How to play?</button>
 </section>
 
-<!-- REVEAL -->
 <section id="reveal" hidden>
-  <div class="top"><span class="pill">Player <b id="rIdx"></b></span><button class="x" data-cancel aria-label="Cancel game">✕</button></div>
-  <h2 class="pass">Pass the phone to <span class="name" id="rName"></span></h2>
-  <button class="card" id="card"></button>
-  <p class="sub" style="text-align:center">Tap the card to see your word. Don't let anyone else see it.</p>
+  <div class="top"><span class="tag" id="rIdx"></span><button class="x" data-quit aria-label="Quit game">✕</button></div>
+  <div class="who"><span class="av" id="rAv"></span><h2>Pass to <span id="rName"></span></h2></div>
+  <div class="dots" id="dots"></div>
+  <button class="flip" id="card" aria-label="Tap to reveal your word">
+    <span class="inner">
+      <span class="face front"><span class="q">?</span><span class="tap">TAP TO REVEAL</span></span>
+      <span class="face back" id="back"></span>
+    </span>
+  </button>
   <button class="btn" id="next" hidden></button>
 </section>
 
-<!-- ROUND -->
 <section id="round" hidden>
-  <div class="top"><span class="pill">🗣️ Clue round</span><button class="x" data-cancel aria-label="Cancel game">✕</button></div>
-  <div class="timer" id="clock"></div>
-  <span class="pill">First clue: <b id="starter"></b></span>
-  <p class="sub" style="text-align:center">Take turns giving one-word clues. End the round when you think you've found the imposter.</p>
+  <div class="top"><span class="tag">🗣️ Clue time</span><button class="x" data-quit aria-label="Quit game">✕</button></div>
+  <div class="ring" id="ring"><div class="in" id="clock"></div></div>
+  <p class="lead">One word each, in order. Not too obvious!</p>
+  <div class="chunk order"><h3>Clue order</h3><ol id="order"></ol></div>
   <div class="spacer"></div>
-  <button class="btn pink" id="stop">End Round</button>
+  <button class="btn pink" id="stop">VOTE NOW 🗳️</button>
 </section>
 
-<!-- VOTE / RESULT -->
 <section id="vote" hidden>
-  <div class="top"><span class="pill">🗳️ Voting</span><button class="x" data-cancel aria-label="Cancel game">✕</button></div>
+  <div class="top"><span class="tag">🗳️ Voting</span><button class="x" data-quit aria-label="Quit game">✕</button></div>
   <h2>Who's the imposter?</h2>
-  <p class="sub">Discuss, then everyone points at their suspect on the count of three.</p>
-  <div class="result" id="result" hidden>
-    <span class="sub" id="resLbl"></span>
-    <div class="names" id="resNames"></div>
-    <span class="sub">The secret word was</span>
-    <div class="word" id="resWord"></div>
-    <span class="sub" id="resCat"></span>
-  </div>
+  <p class="lead">Argue it out, then tap the player the group picks.</p>
+  <div class="chunk votes" id="votes"></div>
   <div class="spacer"></div>
-  <button class="btn pink" id="revealBtn">Reveal Imposter</button>
-  <button class="btn" id="again" hidden>Play Again</button>
-  <button class="btn alt" id="toSetup" hidden>Settings</button>
+  <button class="btn pink" id="lock" disabled>LOCK IT IN 🔒</button>
+</section>
+
+<section id="drum" class="drum" hidden>
+  <div class="big">🥁</div>
+  <h2>And the imposter is…</h2>
+</section>
+
+<section id="result" hidden>
+  <div class="banner" id="banner"></div>
+  <p class="lead" id="verdict"></p>
+  <div class="chunk reveal">
+    <small id="impLbl"></small>
+    <div class="imps" id="imps"></div>
+    <small>The word was</small>
+    <div class="w" id="resWord"></div>
+    <small id="resCat"></small>
+  </div>
+  <div class="steal" id="steal" hidden>
+    <span>Last chance! Imposter, guess the word out loud.</span>
+    <button class="btn ghost" id="stealBtn">They got it 😱 Imposter wins</button>
+  </div>
+  <div class="chunk board"><h3>Scoreboard <button id="resetScores">reset</button></h3><ol id="board"></ol></div>
+  <div class="row2"><button class="btn ghost" id="toSetup">Menu</button><button class="btn" id="again">Next round</button></div>
 </section>
 
 </main>
 
-<dialog id="dPlayers">
-  <h3>Players</h3>
-  <div class="plist" id="plist"></div>
-  <button class="btn alt" id="addPlayer">+ Add Player</button>
-  <div class="dfoot"><button class="btn" id="donePlayers">Done</button></div>
+<dialog id="dPlayer">
+  <h3 id="dpTitle"></h3>
+  <input class="field" id="dpName" maxlength="16" autocomplete="off" aria-label="Player name">
+  <div class="row2"><button class="btn ghost" id="dpRemove">Remove</button><button class="btn" id="dpSave">Save</button></div>
 </dialog>
 
 <dialog id="dCats">
   <h3>Categories</h3>
-  <div class="clist" style="margin-bottom:8px"><label><input type="checkbox" id="allCats"><span>Select all</span></label></div>
-  <div class="clist" id="clist"></div>
-  <h3 style="font-size:1.15rem">✍️ Custom words</h3>
-  <textarea id="custom" placeholder="Your own words, separated by commas or new lines (at least 3)"></textarea>
-  <p class="note" id="customNote"></p>
-  <div class="dfoot"><button class="btn" id="doneCats">Done</button></div>
+  <div class="mini"><button id="catAll">Select all</button><button id="catNone">Clear</button></div>
+  <div class="cats" id="cats"></div>
+  <h3 style="font-size:1.2rem;margin-top:16px">✍️ Your own words</h3>
+  <textarea class="field" id="custom" placeholder="Separate with commas or new lines (at least 3)"></textarea>
+  <p class="hint-txt" id="customNote"></p>
+  <button class="btn" id="doneCats" style="margin-top:12px">Done</button>
+</dialog>
+
+<dialog id="dHow">
+  <h3>How to play</h3>
+  <ol class="howto">
+    <li><span class="n">1</span><span>Everyone gets the same secret word, except the imposter.</span></li>
+    <li><span class="n">2</span><span>Pass the phone. Tap the card, peek, tap to hide, pass it on.</span></li>
+    <li><span class="n">3</span><span>Go around in order and say <b>one word</b> related to the secret word.</span></li>
+    <li><span class="n">4</span><span>Vote. Catch the imposter and every crew member gets +1. Pick wrong and the imposter gets +2.</span></li>
+    <li><span class="n">5</span><span>A caught imposter can still steal the win by guessing the word.</span></li>
+  </ol>
+  <button class="btn" id="doneHow" style="margin-top:14px">Got it!</button>
 </dialog>
 
 <script>
 /*logic*/
 const CATS = {
-  "🎬 Movies": ["Sholay","3 Idiots","Lagaan","Dangal","PK","Kabhi Khushi Kabhie Gham","Dilwale Dulhania Le Jayenge","Gully Boy","Andaz Apna Apna","Hera Pheri","Zindagi Na Milegi Dobara","Baahubali","Jawan","Pathaan","RRR","Queen","Taare Zameen Par","Chak De! India","Munna Bhai MBBS","Kuch Kuch Hota Hai","Dil Chahta Hai","Om Shanti Om","Pushpa","KGF","Jab We Met","Bajrangi Bhaijaan","Titanic","Avengers","Harry Potter","Spider-Man","Jurassic Park","The Lion King","Avatar"],
+  "🎬 Movies": ["Sholay","3 Idiots","Lagaan","Dangal","PK","Kabhi Khushi Kabhie Gham","DDLJ","Gully Boy","Andaz Apna Apna","Hera Pheri","Golmaal","Zindagi Na Milegi Dobara","Yeh Jawaani Hai Deewani","Baahubali","Jawan","Pathaan","RRR","Queen","Stree","Taare Zameen Par","Chak De! India","Munna Bhai MBBS","Kuch Kuch Hota Hai","Dil Chahta Hai","Om Shanti Om","Hum Aapke Hain Koun","Gangs of Wasseypur","Pushpa","KGF","Jab We Met","Bajrangi Bhaijaan","Titanic","Avengers","Harry Potter","Spider-Man","The Lion King"],
   "🌟 Celebrities": ["Shah Rukh Khan","Amitabh Bachchan","Salman Khan","Deepika Padukone","Priyanka Chopra","Alia Bhatt","Ranveer Singh","Rajinikanth","Aamir Khan","Kareena Kapoor","Akshay Kumar","Katrina Kaif","Hrithik Roshan","Madhuri Dixit","Kapil Sharma","Lata Mangeshkar","A. R. Rahman","Arijit Singh","Ranbir Kapoor","Allu Arjun","Prabhas","Diljit Dosanjh","Ratan Tata","Mukesh Ambani","Sundar Pichai","Taylor Swift","Elon Musk","Cristiano Ronaldo"],
-  "🏏 Sports": ["Virat Kohli","MS Dhoni","Sachin Tendulkar","Rohit Sharma","Jasprit Bumrah","Neeraj Chopra","PV Sindhu","IPL","World Cup","Yorker","Googly","Super Over","LBW","Hat-trick","Third Umpire","Kabaddi","Kho-Kho","Badminton","Hockey","Football","Chess","Carrom","Table Tennis","Wrestling","Boxing","Javelin","Olympics","Marathon","Formula 1","Tennis","Swimming"],
-  "🍛 Food": ["Pani Puri","Vada Pav","Pav Bhaji","Chole Bhature","Samosa","Jalebi","Momos","Masala Dosa","Idli","Bhel Puri","Aloo Tikki","Dhokla","Biryani","Butter Chicken","Rajma Chawal","Maggi","Kulfi","Gulab Jamun","Rasgulla","Poha","Paratha","Chai","Lassi","Dal Makhani","Pakora","Paneer Tikka","Pizza","Burger","French Fries","Ice Cream","Sandwich","Noodles","Coffee"],
+  "🏏 Sports": ["Virat Kohli","MS Dhoni","Sachin Tendulkar","Rohit Sharma","Jasprit Bumrah","Neeraj Chopra","PV Sindhu","IPL","World Cup","Gully Cricket","Yorker","Googly","Super Over","LBW","Hat-trick","Third Umpire","Kabaddi","Kho-Kho","Badminton","Hockey","Football","Chess","Carrom","Table Tennis","Wrestling","Boxing","Javelin","Olympics","Marathon","Formula 1","Tennis","Swimming"],
+  "🍛 Food": ["Pani Puri","Vada Pav","Pav Bhaji","Chole Bhature","Samosa","Jalebi","Momos","Masala Dosa","Idli","Poha","Upma","Bhel Puri","Aloo Tikki","Chaat","Dhokla","Misal Pav","Kathi Roll","Litti Chokha","Biryani","Butter Chicken","Rajma Chawal","Thali","Maggi","Kulfi","Gulab Jamun","Rasgulla","Paratha","Chai","Lassi","Dal Makhani","Pakora","Paneer Tikka","Pizza","Burger","French Fries","Ice Cream","Noodles","Coffee"],
   "🗺️ Places": ["Mumbai","Delhi","Goa","Jaipur","Varanasi","Kolkata","Bengaluru","Chennai","Hyderabad","Shimla","Manali","Ladakh","Kerala","Rishikesh","Agra","Udaipur","Amritsar","Darjeeling","Ooty","Andaman","Taj Mahal","Gateway of India","India Gate","Qutub Minar","Golden Temple","Red Fort","Marine Drive","Dubai","Paris","London","New York","Singapore","Bali"],
-  "🪔 Festivals & Occasions": ["Diwali","Holi","Eid","Christmas","Navratri","Durga Puja","Ganesh Chaturthi","Raksha Bandhan","Onam","Pongal","Lohri","Makar Sankranti","Baisakhi","Janmashtami","Dussehra","Wedding","Mehendi","Sangeet","Birthday Party","New Year's Eve","Independence Day","Republic Day","Valentine's Day","Graduation","Housewarming","Baby Shower","Farewell Party","School Reunion","Anniversary"],
+  "🪔 Festivals & Occasions": ["Diwali","Holi","Eid","Christmas","Navratri","Garba Night","Durga Puja","Ganesh Chaturthi","Raksha Bandhan","Karva Chauth","Onam","Pongal","Lohri","Makar Sankranti","Baisakhi","Janmashtami","Dussehra","Chhath Puja","Wedding","Baraat","Mehendi","Haldi","Sangeet","Birthday Party","New Year's Eve","Independence Day","Republic Day","Valentine's Day","Graduation","Housewarming","Farewell Party","School Reunion"],
   "🔱 Mythology": ["Ram","Sita","Hanuman","Ravan","Krishna","Arjun","Karna","Bheem","Draupadi","Shiva","Ganesha","Durga","Lakshmi","Saraswati","Vishnu","Brahma","Indra","Kumbhakarna","Eklavya","Bhishma","Duryodhan","Shakuni","Lakshman","Narad Muni","Sudarshan Chakra"],
-  "🏠 Around the House": ["Pressure Cooker","Ceiling Fan","Water Purifier","Geyser","Inverter","Cooler","Air Conditioner","Refrigerator","Washing Machine","Mixer Grinder","Gas Stove","Tiffin Box","Tulsi Plant","Diya","Incense Stick","Mosquito Repellent","Bucket","Slippers","Almirah","Sofa","Television","TV Remote","Doormat","Mirror","Pillow","Blanket","Broom","Iron","Toothbrush","Calendar"],
-  "📺 TV & OTT": ["Kaun Banega Crorepati","Bigg Boss","CID","Taarak Mehta Ka Ooltah Chashmah","Shaktimaan","Ramayan","Mahabharat","Sacred Games","Mirzapur","Panchayat","Kota Factory","Scam 1992","The Family Man","Roadies","Indian Idol","Shark Tank India","Chhota Bheem","Sarabhai vs Sarabhai","The Kapil Sharma Show","Crime Patrol","Friends","Money Heist","Squid Game","Stranger Things","Game of Thrones","Breaking Bad"],
-  "🛒 Brands": ["Amul","Parle-G","Tata","Jio","Paytm","Zomato","Swiggy","Flipkart","Amazon","Haldiram's","Fevicol","Ola","Uber","Royal Enfield","Maruti Suzuki","Thums Up","Frooti","Bisleri","Dettol","Asian Paints","Kurkure","Dairy Milk","Google","Apple","Netflix","Instagram","WhatsApp","YouTube","Nike","McDonald's","Domino's","Starbucks","Coca-Cola"],
-  "💼 Jobs": ["Doctor","Teacher","Police Officer","Auto Driver","Chef","Pilot","Software Engineer","Lawyer","Chartered Accountant","Farmer","Shopkeeper","Delivery Partner","Tailor","Barber","Electrician","Plumber","Security Guard","Nurse","Dentist","Architect","Journalist","Photographer","Bus Conductor","Ticket Checker","Bank Manager","Priest","Politician","YouTuber","Wedding Planner","Street Food Vendor","Gym Trainer"],
+  "🏠 Around the House": ["Pressure Cooker","Ceiling Fan","Water Purifier","Geyser","Inverter","Cooler","Air Conditioner","Refrigerator","Washing Machine","Mixer Grinder","Gas Stove","Tiffin Box","Steel Glass","Tulsi Plant","Rangoli","Diya","Incense Stick","Mosquito Repellent","Charpai","Matka","Bucket","Slippers","Almirah","Sofa","Television","TV Remote","Doormat","Mirror","Pillow","Broom","Iron","Toothbrush"],
+  "📺 TV & OTT": ["Kaun Banega Crorepati","Bigg Boss","CID","Taarak Mehta Ka Ooltah Chashmah","Shaktimaan","Ramayan","Mahabharat","Doordarshan","Malgudi Days","Khichdi","Sarabhai vs Sarabhai","Sacred Games","Mirzapur","Panchayat","Kota Factory","Scam 1992","The Family Man","Roadies","Indian Idol","Shark Tank India","Chhota Bheem","Motu Patlu","The Kapil Sharma Show","Crime Patrol","Friends","Money Heist","Squid Game","Stranger Things","Game of Thrones","Breaking Bad"],
+  "🛒 Brands": ["Amul","Parle-G","Tata","Jio","Paytm","Zomato","Swiggy","Flipkart","Amazon","Haldiram's","Fevicol","Ola","Uber","Royal Enfield","Maruti Suzuki","Bajaj Chetak","Thums Up","Frooti","Rasna","Hajmola","Bisleri","Lijjat Papad","Mother Dairy","Dettol","Asian Paints","Kurkure","Dairy Milk","Google","Apple","Netflix","Instagram","WhatsApp","YouTube","McDonald's","Domino's","Coca-Cola"],
+  "💼 Jobs": ["Doctor","Teacher","Police Officer","Auto Driver","Chef","Pilot","Software Engineer","Lawyer","Chartered Accountant","Farmer","Shopkeeper","Kirana Store Owner","Chaiwala","Dabbawala","Halwai","Paanwala","Delivery Partner","Tailor","Barber","Electrician","Plumber","Security Guard","Nurse","Dentist","Architect","Journalist","Photographer","Bus Conductor","Bank Manager","Priest","Politician","YouTuber","Wedding Planner","Gym Trainer"],
   "🐘 Animals": ["Elephant","Tiger","Lion","Peacock","Cow","Buffalo","Monkey","Dog","Cat","Parrot","Crow","Pigeon","Snake","Camel","Horse","Donkey","Goat","Rabbit","Deer","Bear","Crocodile","Frog","Lizard","Squirrel","Owl","Eagle","Mosquito","Cockroach","Dolphin","Giraffe"],
 };
-const CUSTOM = "✍️ Custom";
+const CUSTOM = "✍️ Your words";
 function parseCustom(s){ return [...new Set(String(s||"").split(/[,\n]/).map(w=>w.trim()).filter(Boolean))]; }
 function maxImposters(n){ return Math.max(1, Math.floor((n-1)/2)); }
 function buildPool(cats, custom){
@@ -205,155 +315,240 @@ function deal(nPlayers, impCount, pool, recent=[], rng=Math.random){
   const imposters = shuffle([...Array(nPlayers).keys()], rng).slice(0, k);
   return { cat: pick.cat, word: pick.word, imposters, starter: Math.floor(rng()*nPlayers) };
 }
+// Crew wins: every non-imposter +1. Imposters win: each imposter +2.
+function points(n, imposters, crewWins){ return Array.from({length:n}, (_,i) => imposters.includes(i) ? (crewWins?0:2) : (crewWins?1:0)); }
+function turnOrder(n, start){ return Array.from({length:n}, (_,i) => (start+i) % n); }
 /*/logic*/
 
 const $ = s => document.querySelector(s);
-const KEY = "chupa-rustam-v2";
-const DEFAULTS = { players:["Player 1","Player 2","Player 3","Player 4"], imp:1, hints:true, cats:Object.keys(CATS), custom:"", timed:true, mins:3, recent:[] };
-let S = DEFAULTS;
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const buzz = p => { try { navigator.vibrate?.(p); } catch {} };
+const AV = ["🦁","🐯","🐼","🦊","🐸","🐵","🐨","🐧","🦄","🐙","🦉","🐶","🐱","🐰","🐻","🐲"];
+const COL = ["#ffd23f","#ff8c42","#2ee6c5","#7cc6ff","#ff8fb1","#c3a6ff","#a5e86b","#ffb3a1"];
+const paintAv = (node, i) => { node.textContent = AV[i % AV.length]; node.style.setProperty("--c", COL[i % COL.length]); return node; };
+const avatar = (i, cls="") => paintAv(el("span", "av " + cls), i);
+const TIMES = [0, 1, 2, 3, 5, 8];
+const MAX_PLAYERS = 16;
+
+const KEY = "chupa-rustam-v3";
+const DEFAULTS = { players:["Player 1","Player 2","Player 3","Player 4"], imp:1, hints:true, cats:Object.keys(CATS), custom:"", mins:3, recent:[], scores:{} };
+let S = { ...DEFAULTS };
 try { S = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || "{}") }; } catch {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 
-function show(id){ document.querySelectorAll("main > section").forEach(s => s.hidden = s.id !== id); window.scrollTo(0,0); }
+function show(id){ document.querySelectorAll("main > section").forEach(s => s.hidden = s.id !== id); window.scrollTo(0, 0); }
 
+// ---------- setup
 function renderSetup(){
   const n = S.players.length;
-  S.imp = Math.min(S.imp, maxImposters(n));
-  $("#vPlayers").textContent = n;
+  S.imp = Math.min(Math.max(1, S.imp), maxImposters(n));
+  const chips = $("#chips"); chips.replaceChildren();
+  S.players.forEach((name, i) => {
+    const b = el("button", "chip"); b.style.animationDelay = i * 30 + "ms";
+    b.append(avatar(i), el("span", "nm", name)); b.setAttribute("aria-label", `Edit ${name}`);
+    b.onclick = () => editPlayer(i); chips.append(b);
+  });
+  if (n < MAX_PLAYERS) {
+    const add = el("button", "chip add"); add.append(el("span", "av", "+"), el("span", "nm", "Add"));
+    add.setAttribute("aria-label", "Add player"); add.onclick = () => editPlayer(-1); chips.append(add);
+  }
+  $("#pCount").textContent = `${n} playing`;
   $("#vImp").textContent = S.imp;
   $("#impMinus").disabled = S.imp <= 1;
   $("#impPlus").disabled = S.imp >= maxImposters(n);
-  $("#hints").checked = S.hints;
-  $("#timed").checked = S.timed;
-  $("#mins").value = String(S.mins);
-  $("#mins").disabled = !S.timed;
-  const total = Object.keys(CATS).length + 1;
-  const sel = S.cats.filter(c => CATS[c] || c === CUSTOM).length;
-  $("#vCats").textContent = sel === total || (sel === total - 1 && !S.cats.includes(CUSTOM)) ? "All" : sel;
-  const pool = buildPool(S.cats, S.custom);
-  const problem = n < 3 ? "Add at least 3 players." : !pool.length ? "Select at least one category." : "";
+  $("#vTime").textContent = S.mins ? `${S.mins} min` : "Off";
+  $("#tTime").classList.toggle("on", !!S.mins);
+  $("#vHint").textContent = S.hints ? "On" : "Off";
+  $("#tHint").classList.toggle("on", S.hints);
+  const total = Object.keys(CATS).length, picked = S.cats.filter(c => CATS[c]).length;
+  $("#vCats").textContent = picked === total ? "All" : `${S.cats.length} picked`;
+  const problem = n < 3 ? "Add at least 3 players." : !buildPool(S.cats, S.custom).length ? "Pick at least one category." : "";
   $("#start").disabled = !!problem;
-  $("#startNote").hidden = !problem;
-  $("#startNote").textContent = problem;
+  $("#startNote").hidden = !problem; $("#startNote").textContent = problem;
   save();
 }
-
-// ---- players dialog
-function renderPlayers(){
-  const list = $("#plist"); list.replaceChildren();
-  S.players.forEach((name, i) => {
-    const row = document.createElement("div"); row.className = "prow";
-    const inp = document.createElement("input"); inp.value = name; inp.maxLength = 20; inp.setAttribute("aria-label", `Player ${i+1} name`);
-    inp.oninput = () => { S.players[i] = inp.value; };
-    const del = document.createElement("button"); del.textContent = "✕"; del.setAttribute("aria-label", `Remove ${name}`);
-    del.onclick = () => { S.players.splice(i,1); renderPlayers(); };
-    row.append(inp, del); list.append(row);
-  });
-}
-$("#openPlayers").onclick = () => { renderPlayers(); $("#dPlayers").showModal(); };
-$("#addPlayer").onclick = () => { S.players.push(`Player ${S.players.length+1}`); renderPlayers(); $("#plist").lastChild.querySelector("input").select(); };
-$("#dPlayers").onclose = () => { S.players = S.players.map((p,i) => p.trim() || `Player ${i+1}`); renderSetup(); };
-$("#donePlayers").onclick = () => $("#dPlayers").close();
-
-// ---- categories dialog
-function renderCats(){
-  const list = $("#clist"); list.replaceChildren();
-  const all = [...Object.keys(CATS), CUSTOM];
-  all.forEach(c => {
-    const lab = document.createElement("label");
-    const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = S.cats.includes(c);
-    cb.onchange = () => { S.cats = cb.checked ? [...S.cats, c] : S.cats.filter(x => x !== c); syncAll(); };
-    const sp = document.createElement("span"); sp.textContent = c;
-    const sm = document.createElement("small"); sm.textContent = c === CUSTOM ? parseCustom(S.custom).length : CATS[c].length;
-    lab.append(cb, sp, sm); list.append(lab);
-  });
-  const syncAll = () => { $("#allCats").checked = all.every(c => S.cats.includes(c)); };
-  syncAll();
-  $("#allCats").onchange = e => { S.cats = e.target.checked ? all : []; renderCats(); };
-  $("#custom").value = S.custom;
-  noteCustom();
-}
-function noteCustom(){ const k = parseCustom(S.custom).length; $("#customNote").textContent = k >= 3 ? `${k} words ready. Make sure "${CUSTOM}" is selected above.` : `${k}/3 words. Add at least 3 to play this category.`; }
-$("#custom").oninput = e => { S.custom = e.target.value; noteCustom(); };
-$("#openCats").onclick = () => { renderCats(); $("#dCats").showModal(); };
-$("#dCats").onclose = renderSetup;
-$("#doneCats").onclick = () => $("#dCats").close();
-
-// ---- setup controls
 $("#impMinus").onclick = () => { S.imp--; renderSetup(); };
 $("#impPlus").onclick = () => { S.imp++; renderSetup(); };
-$("#hints").onchange = e => { S.hints = e.target.checked; renderSetup(); };
-$("#timed").onchange = e => { S.timed = e.target.checked; renderSetup(); };
-$("#mins").onchange = e => { S.mins = +e.target.value; renderSetup(); };
+$("#tTime").onclick = () => { S.mins = TIMES[(TIMES.indexOf(S.mins) + 1) % TIMES.length]; renderSetup(); };
+$("#tHint").onclick = () => { S.hints = !S.hints; renderSetup(); };
+$("#openHow").onclick = () => $("#dHow").showModal();
+$("#doneHow").onclick = () => $("#dHow").close();
 
-// ---- game
-let G, idx, tick;
+// players
+let editing = -1;
+function editPlayer(i){
+  editing = i;
+  $("#dpTitle").textContent = i < 0 ? "New player" : "Edit player";
+  $("#dpName").value = i < 0 ? "" : S.players[i];
+  $("#dpName").placeholder = `Player ${i < 0 ? S.players.length + 1 : i + 1}`;
+  $("#dpRemove").hidden = i < 0;
+  $("#dPlayer").showModal(); $("#dpName").focus();
+}
+function savePlayer(){
+  const base = $("#dpName").value.trim().slice(0, 16) || $("#dpName").placeholder;
+  let name = base, k = 2;
+  while (S.players.some((p, j) => p === name && j !== editing)) name = `${base} ${k++}`;
+  if (editing < 0) S.players.push(name);
+  else {
+    const old = S.players[editing];
+    if (old !== name && S.scores[old] != null) { S.scores[name] = S.scores[old]; delete S.scores[old]; }
+    S.players[editing] = name;
+  }
+  $("#dPlayer").close(); renderSetup();
+}
+$("#dpSave").onclick = savePlayer;
+$("#dpName").onkeydown = e => { if (e.key === "Enter") savePlayer(); };
+$("#dpRemove").onclick = () => { S.players.splice(editing, 1); $("#dPlayer").close(); renderSetup(); };
+
+// categories
+function renderCats(){
+  const box = $("#cats"); box.replaceChildren();
+  [...Object.keys(CATS), CUSTOM].forEach(c => {
+    const [e, ...rest] = c.split(" ");
+    const b = el("button", "cat"); b.append(el("span", "e", e), el("span", null, rest.join(" ")));
+    b.setAttribute("aria-pressed", S.cats.includes(c));
+    b.onclick = () => { S.cats = S.cats.includes(c) ? S.cats.filter(x => x !== c) : [...S.cats, c]; renderCats(); };
+    box.append(b);
+  });
+  const k = parseCustom(S.custom).length;
+  $("#customNote").textContent = k >= 3 ? `${k} words. Shows up as "${CUSTOM}".` : `${k}/3 words needed to play these.`;
+}
+$("#tCats").onclick = () => { $("#custom").value = S.custom; renderCats(); $("#dCats").showModal(); };
+$("#catAll").onclick = () => { S.cats = [...Object.keys(CATS), ...(parseCustom(S.custom).length >= 3 ? [CUSTOM] : [])]; renderCats(); };
+$("#catNone").onclick = () => { S.cats = []; renderCats(); };
+$("#custom").oninput = e => {
+  S.custom = e.target.value;
+  if (parseCustom(S.custom).length >= 3 && !S.cats.includes(CUSTOM)) S.cats.push(CUSTOM);
+  renderCats();
+};
+$("#doneCats").onclick = () => $("#dCats").close();
+$("#dCats").onclose = renderSetup;
+
+// ---------- game
+let G, idx, tick, drumT, voted, wake;
 function startGame(){
   G = deal(S.players.length, S.imp, buildPool(S.cats, S.custom), S.recent);
-  S.recent = [G.word, ...S.recent].slice(0, 80); save();
+  S.recent = [G.word, ...S.recent].slice(0, 100); save();
+  try { navigator.wakeLock?.request("screen").then(w => wake = w).catch(() => {}); } catch {}
   idx = 0; showPass(); show("reveal");
 }
-function cardBack(){
-  const c = $("#card"); c.className = "card"; c.dataset.open = "";
-  c.innerHTML = '<div class="big">🪔</div><div class="hint">Tap to reveal</div>';
-}
 function showPass(){
-  $("#rIdx").textContent = `${idx+1}/${S.players.length}`;
+  $("#rIdx").textContent = `${idx + 1} of ${S.players.length}`;
   $("#rName").textContent = S.players[idx];
+  const av = $("#rAv"); paintAv(av, idx); av.style.animation = "none"; av.offsetWidth; av.style.animation = "";
+  $("#dots").replaceChildren(...S.players.map((_, i) => el("i", i < idx ? "done" : i === idx ? "now" : "")));
+  $("#card").classList.remove("open");
+  $("#back").replaceChildren();
   $("#next").hidden = true;
-  cardBack();
+}
+function fillBack(){
+  const b = $("#back"), imp = G.imposters.includes(idx);
+  b.className = "face back" + (imp ? " imp" : ""); b.replaceChildren();
+  if (imp) b.append(el("span", "big", "😈"), el("span", "word", "YOU'RE THE IMPOSTER"),
+    S.hints ? el("span", "hintbox", `Hint: ${G.cat}`) : el("span", "sub", "No hint. Blend in!"));
+  else b.append(el("span", "cat", G.cat), el("span", "word", G.word), el("span", "sub", "Don't say it out loud!"));
+  b.append(el("span", "sub", "Tap to hide"));
 }
 $("#card").onclick = () => {
   const c = $("#card");
-  if (c.dataset.open) return cardBack();
-  const imp = G.imposters.includes(idx);
-  c.className = "card face" + (imp ? " imp" : ""); c.dataset.open = "1"; c.replaceChildren();
-  const add = (cls, txt) => { const d = document.createElement("div"); d.className = cls; d.textContent = txt; c.append(d); };
-  if (imp) {
-    add("big", "👻"); add("word", "You're the imposter");
-    add("hint", S.hints ? `Hint: ${G.cat}` : "No hint. Blend in!");
-  } else {
-    add("cat", G.cat); add("word", G.word);
-  }
-  add("cat", "Tap again to hide");
-  const last = idx === S.players.length - 1;
-  $("#next").textContent = last ? "Everyone's seen it. Start!" : "Next Player →";
+  if (c.classList.contains("open")) { c.classList.remove("open"); return; }
+  fillBack(); c.classList.add("open"); buzz(25);
+  $("#next").textContent = idx === S.players.length - 1 ? "EVERYONE'S READY ▶" : "HIDE & PASS ➜";
   $("#next").hidden = false;
 };
 $("#next").onclick = () => { idx++; idx < S.players.length ? showPass() : startRound(); };
 
-const fmt = ms => { const s = Math.max(0, Math.ceil(ms/1000)); return `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`; };
+const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 function startRound(){
-  $("#starter").textContent = S.players[G.starter];
-  const clock = $("#clock"); clock.classList.remove("low");
+  $("#order").replaceChildren(...turnOrder(S.players.length, G.starter).map(i => {
+    const li = el("li"); li.append(avatar(i, "sm"), el("span", "nm", S.players[i])); return li;
+  }));
   clearInterval(tick);
-  if (S.timed) {
-    const end = Date.now() + S.mins * 60000;
-    const upd = () => { const left = end - Date.now(); clock.textContent = fmt(left); clock.classList.toggle("low", left < 15000);
-      if (left <= 0) { navigator.vibrate?.([300,100,300]); endRound(); } };
+  const ring = $("#ring"), clock = $("#clock"); ring.classList.remove("low"); ring.style.setProperty("--p", 1);
+  if (S.mins) {
+    const total = S.mins * 60000, end = Date.now() + total;
+    const upd = () => {
+      const left = end - Date.now();
+      clock.textContent = fmt(left);
+      ring.style.setProperty("--p", Math.max(0, left / total));
+      ring.classList.toggle("low", left < 15000);
+      if (left <= 0) { buzz([300, 100, 300]); toVote(); }
+    };
     upd(); tick = setInterval(upd, 250);
   } else clock.textContent = "∞";
   show("round");
 }
-function endRound(){
-  clearInterval(tick);
-  $("#result").hidden = true; $("#revealBtn").hidden = false; $("#again").hidden = true; $("#toSetup").hidden = true;
+function toVote(){
+  clearInterval(tick); voted = null; $("#lock").disabled = true;
+  const v = $("#votes");
+  v.replaceChildren(...S.players.map((name, i) => {
+    const b = el("button", "vote"); b.append(avatar(i), el("span", "nm", name));
+    b.setAttribute("aria-label", `Vote ${name}`);
+    b.onclick = () => { voted = i; v.querySelectorAll(".vote").forEach((x, j) => x.classList.toggle("sel", j === i)); $("#lock").disabled = false; buzz(15); };
+    return b;
+  }));
   show("vote");
 }
-$("#stop").onclick = endRound;
-$("#revealBtn").onclick = () => {
-  const names = G.imposters.map(i => S.players[i]);
-  $("#resLbl").textContent = names.length > 1 ? "The imposters were" : "The imposter was";
-  $("#resNames").textContent = names.join(" & ");
+$("#stop").onclick = toVote;
+$("#lock").onclick = () => { show("drum"); buzz([40, 60, 40, 60, 40]); drumT = setTimeout(showResult, 1800); };
+
+function showResult(){
+  const crew = G.imposters.includes(voted);
+  $("#impLbl").textContent = G.imposters.length > 1 ? "The imposters were" : "The imposter was";
+  $("#imps").replaceChildren(...G.imposters.map(i => { const d = el("div"); d.append(avatar(i), el("span", null, S.players[i])); return d; }));
   $("#resWord").textContent = G.word;
   $("#resCat").textContent = G.cat;
-  $("#result").hidden = false; $("#revealBtn").hidden = true; $("#again").hidden = false; $("#toSetup").hidden = false;
+  $("#steal").hidden = !crew;
+  applyResult(crew,
+    crew ? `${S.players[voted]} was the imposter. Crew wins!`
+         : `${S.players[voted]} was innocent. Imposter${G.imposters.length > 1 ? "s win" : " wins"}!`);
+  show("result");
+  if (crew) confetti(); else buzz([80, 60, 80]);
+}
+function applyResult(crew, verdict){
+  const b = $("#banner");
+  b.className = "banner " + (crew ? "win" : "lose");
+  b.textContent = crew ? "CAUGHT! 🎉" : "ESCAPED! 😈";
+  b.style.animation = "none"; b.offsetWidth; b.style.animation = "";
+  $("#verdict").textContent = verdict;
+  G.delta = points(S.players.length, G.imposters, crew);
+  G.delta.forEach((d, i) => { const n = S.players[i]; S.scores[n] = (S.scores[n] || 0) + d; });
+  save(); renderBoard();
+}
+$("#stealBtn").onclick = () => {
+  G.delta.forEach((d, i) => { S.scores[S.players[i]] -= d; });
+  $("#steal").hidden = true;
+  applyResult(false, "Caught, but they guessed the word. Imposter steals the win!");
 };
+function renderBoard(){
+  const rows = S.players.map((n, i) => ({ n, i, p: S.scores[n] || 0, d: G?.delta?.[i] || 0 })).sort((a, b) => b.p - a.p);
+  $("#board").replaceChildren(...rows.map(r => {
+    const li = el("li"); li.append(avatar(r.i, "sm"), el("span", "n", r.n), el("span", "d", r.d ? `+${r.d}` : ""), el("span", "p", r.p)); return li;
+  }));
+}
+$("#resetScores").onclick = () => { S.scores = {}; if (G) G.delta = []; save(); renderBoard(); };
+
+function confetti(){
+  const box = el("div", "confetti");
+  for (let k = 0; k < 70; k++) {
+    const c = el("i");
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = COL[k % COL.length];
+    c.style.animationDuration = 1.6 + Math.random() * 1.6 + "s";
+    c.style.animationDelay = Math.random() * .4 + "s";
+    box.append(c);
+  }
+  document.body.append(box); setTimeout(() => box.remove(), 4000);
+}
+
+function quit(){
+  clearInterval(tick); clearTimeout(drumT);
+  wake?.release().catch(() => {}); wake = null;
+  renderSetup(); show("setup");
+}
+document.querySelectorAll("[data-quit]").forEach(b => b.onclick = () => { if (confirm("Quit this round?")) quit(); });
+$("#toSetup").onclick = quit;
 $("#again").onclick = startGame;
-$("#toSetup").onclick = () => { renderSetup(); show("setup"); };
-document.querySelectorAll("[data-cancel]").forEach(b => b.onclick = () => {
-  if (confirm("Leave this game? The current round will end.")) { clearInterval(tick); renderSetup(); show("setup"); }
-});
 $("#start").onclick = startGame;
 
 renderSetup();
